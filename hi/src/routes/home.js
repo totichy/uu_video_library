@@ -72,6 +72,20 @@ export const Home = createVisualComponent({
     let headerError = useLsi(errorTtl);
     const errorDn = Errors.titleDone || {};
     let headerDone = useLsi(errorDn);
+    const ratingSuccessCgi = VideoLsi.ratingSuccessCgi || {};
+    let ratingSuccess = useLsi(ratingSuccessCgi);
+    const isFailedCgi = VideoLsi.isFailed || {};
+    let isFailed = useLsi(isFailedCgi);
+    
+    const deletionOfCgi = VideoLsi.deletionOf || {};
+    let deletionOf = useLsi(deletionOfCgi);
+    
+    const ratingOfCgi = VideoLsi.ratingOf || {};
+    let ratingOf = useLsi(ratingOfCgi);
+
+    const loadingCgi = VideoLsi.loading || {};
+    let loading = useLsi(loadingCgi);
+    
 
     function categorySelection(queryString) {
       let urlParams = new URLSearchParams(queryString);
@@ -183,9 +197,9 @@ export const Home = createVisualComponent({
           showError(`${e.response.data.error_message}`);
         } else if (e.request) {
           // client never received a response, or request never left
-          showError(`Deletion of ${video.title} is failed.`);
+          showError(`${deletionOf} ${video.title} ${isFailed}`);
         } else {
-          showError(`Deletion of ${video.title} is failed.`);
+          showError(`${deletionOf} ${video.title} ${isFailed}`);
         }
       }
     }
@@ -193,13 +207,13 @@ export const Home = createVisualComponent({
     async function handleRatingVideo(video, mrating) {
       try {
         await ratingVideoRef.current({ code: video.code, mrating: Number(mrating) });
-        showSuccess("Děkujeme za hodnocení, které bylo: " + mrating);
+        showSuccess(ratingSuccess + mrating);
       } catch (e) {
-        showError(`Rating of ${video.title} is failed.`);
+        showError(`${ratingOf} ${video.title} ${isFailed}`);
       }
     }
     function renderLoad() {
-      return <UU5.Bricks.Loading>Loading...</UU5.Bricks.Loading>;
+      return <UU5.Bricks.Loading>{loading}</UU5.Bricks.Loading>;
     }
 
     function renderError(errorData) {
