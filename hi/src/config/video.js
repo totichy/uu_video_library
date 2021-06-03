@@ -66,10 +66,6 @@ export const VideoLsi = {
   deletionOf: {
     cs: "Při mazání ",
     en: "Deletion of ",
-  },
-  loading: {
-    cs: "Načítám...",
-    en: "Loading...",
-  },
+  }
 };
 export default VideoLsi;
