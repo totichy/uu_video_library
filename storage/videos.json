@@ -1,0 +1,108 @@
+[
+  {
+    "code": "1621296930029",
+    "authorName": "Patrik",
+    "authorSurname": "Sekerka",
+    "title": "UU5 - Responsivity",
+    "videoUrl": "https://vimeo.com/540126577",
+    "description": "In this lesson, you will learn to adjust rendered content for different types of devices such as mobiles, tablets or laptops.",
+    "category": [
+      "k3s"
+    ],
+    "visible": true,
+    "averageRating": 4.5,
+    "ratingCount": 2,
+    "ratingTotal": 9
+  },
+  {
+    "code": "1620800859427",
+    "authorName": "Petr",
+    "authorSurname": "Novák",
+    "title": "Quadratic equations",
+    "videoUrl": "https://www.youtube.com/watch?v=kC9D7iy_16U",
+    "description": "We know that Quadratic Polynomials are! But what are Quadratic Equations? Watch this video to know more! We know that Quadratic Polynomials are! But what are Quadratic Equations? Watch this video to know more!",
+    "category": [
+      "o1n"
+    ],
+    "visible": true,
+    "averageRating": 0,
+    "ratingCount": 0,
+    "ratingTotal": 0
+  },
+  {
+    "code": "1622055427049",
+    "authorName": "Patrik",
+    "authorSurname": "Sekerka",
+    "title": "Neurčitý integrál funkce 1/x",
+    "videoUrl": "https://cs.khanacademy.org/math/integralni-pocet/xbf9b4d9711003f1c:vypocty-intergralu/xbf9b4d9711003f1c:neurcite-integraly-elementarnich-funkci/v/antiderivative-of-x-1",
+    "description": "Z diferenciálního počtu si pamatujeme, že derivace ln(x) je 1/x. Integrace jde opačným směrem: integrál (nebo primitivní funkce) funkce 1/x by měla být funkce, jejíž derivace je 1/x. A to jsme právě viděli, že to je ln(x). Zádrhelem je, že pokud je x záporné, tak ln(x) není definováno! Řešení je prosté: primitivní funkce 1/x je ln(|x|). Tvůrce: Sal Khan.",
+    "category": [
+      "0lg"
+    ],
+    "visible": true,
+    "averageRating": 3,
+    "ratingCount": 1,
+    "ratingTotal": 3
+  },
+  {
+    "code": "1622419368398",
+    "authorName": "Patrik",
+    "authorSurname": "Sekerka",
+    "title": "UU5 - stav komponenty, základy práce s hooks",
+    "videoUrl": "https://vimeo.com/535784896",
+    "description": "Budeme se držet pravidla, že jakákoliv data, která svou změnou mají způsobit vizuální změnu, tak budou ukládána ve stavu komponenty. Data, která svou změnou nemají způsobit překreslení zde nebudou, abychom se vyhnuli nepotřebnému překreslování.",
+    "category": [
+      "k3s"
+    ],
+    "visible": true,
+    "averageRating": 3,
+    "ratingCount": 1,
+    "ratingTotal": 3
+  },
+  {
+    "code": "1622472226219",
+    "authorName": "Patrik",
+    "authorSurname": "Sekerka",
+    "title": "uuBML",
+    "videoUrl": "https://vimeo.com/488849451",
+    "description": "V této lekci si představíte uuBml Draw - nástroj pro vizuální modelování v jazyce uuBml (Unicorn Unified Business Modeling Language). Naučíte se kreslit digramy a vyjadřovat myšlenky pomocí ikon a vazeb.",
+    "category": [
+      "k3s"
+    ],
+    "visible": true,
+    "averageRating": 4,
+    "ratingCount": 1,
+    "ratingTotal": 4
+  },
+  {
+    "code": "1622472471114",
+    "authorName": "Patrik",
+    "authorSurname": "Sekerka",
+    "title": "Vazba m:n",
+    "videoUrl": "https://player.vimeo.com/491515287",
+    "description": "Základně úrovně designu aplikace, vizuální modelování, uuBml",
+    "category": [
+      "k3s"
+    ],
+    "visible": true,
+    "averageRating": 4.5,
+    "ratingCount": 2,
+    "ratingTotal": 9
+  },
+  {
+    "code": "1622473090287",
+    "authorName": "Patrik",
+    "authorSurname": "Sekerka",
+    "title": "Big Buck Bunny",
+    "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+    "description": "Big Buck Bunny:",
+    "category": [
+      "0lg",
+      "o1n"
+    ],
+    "visible": true,
+    "averageRating": 4.3,
+    "ratingCount": 4,
+    "ratingTotal": 17
+  }
+]
