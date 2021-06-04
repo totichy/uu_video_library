@@ -112,9 +112,11 @@ export const VideoDetail = createVisualComponent({
     //@@viewOff: hooks
     const [mrating, setRating] = useState(video.averageRating);
     const [ratingVote, setRatingVote] = useState(true);
+    const [ratingCount, setRatingCount] = useState(video.ratingCount);
     const handleChange = (value) => {
       setRating(Number(value));
       setRatingVote(false);
+      setRatingCount(ratingCount + 1);
     };
     //@@viewOn:private
     const descCg = Form.descriptionCgi || {};
@@ -179,7 +181,7 @@ export const VideoDetail = createVisualComponent({
         return (
           <UU5.Bricks.Section>
             <UU5.Bricks.Rating count={5} value={video.averageRating} size={ratingSize} colorSchema="orange" />{" "}
-            <UU5.Bricks.Lsi lsi={VideoLsi.vote} /> {video.ratingCount}
+            <UU5.Bricks.Lsi lsi={VideoLsi.vote} /> {ratingCount}
           </UU5.Bricks.Section>
         );
       } else {
