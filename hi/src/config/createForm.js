@@ -55,5 +55,9 @@ export const Form = {
     cs: "Hledat video",
     en: "Search video",
   },
+  copyButton: {
+    cs: "Kopírovat odkaz",
+    en: "Copy link",
+  },
 };
 export default Form;

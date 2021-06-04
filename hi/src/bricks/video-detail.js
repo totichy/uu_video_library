@@ -118,7 +118,9 @@ export const VideoDetail = createVisualComponent({
     const descCg = Form.descriptionCgi || {};
     const urlCg = Form.urlCgi || {};
     const categoryCg = Form.category || {};
+    const copyButtonCg = Form.copyButton || {};
 
+    let copyButton = useLsi(copyButtonCg);
     let description = useLsi(descCg);
     let videoUrl = useLsi(urlCg);
     let category = useLsi(categoryCg);
@@ -283,11 +285,20 @@ export const VideoDetail = createVisualComponent({
         <UU5.Bricks.Div className={CLASS_NAMES.content()}>
           <UU5.Bricks.Div>{viodeShow()}</UU5.Bricks.Div>
           <UU5.Bricks.Div className={CLASS_NAMES.content()}>
-            <strong>{videoUrl}</strong>
+            <strong>{"Originál " + videoUrl}</strong>
             {": "}
             <UU5.Bricks.Link href={video.videoUrl} target="_blank">
               {video.videoUrl}
             </UU5.Bricks.Link>
+            <UU5.Bricks.Div>
+             <strong>{"Server " + videoUrl}</strong>
+            {": "}
+            <UU5.Bricks.Link href= {"video?code=" + video.code}  className={CLASS_NAMES.linkCat()}>
+              {"http://localhost:3000/video?code=" + video.code}
+            </UU5.Bricks.Link>  
+            <UU5.Bricks.Button 
+            onClick={() => {navigator.clipboard.writeText("http://localhost:3000/video?code=" + video.code)}}colorSchema="blue" ><UU5.Bricks.Icon icon="mdi-content-copy"/> {copyButton}</UU5.Bricks.Button>
+            </UU5.Bricks.Div>
           </UU5.Bricks.Div>
           <UU5.Bricks.Div className={CLASS_NAMES.content()}>
             <strong>{description}</strong>
