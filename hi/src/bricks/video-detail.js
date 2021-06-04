@@ -179,7 +179,7 @@ export const VideoDetail = createVisualComponent({
           <UU5.Bricks.Rating
             count={5}
             value={mrating}
-            size={ratingSize}
+            size={"l"}
             colorSchema="orange"
             onChange={handleChange}
             onClick={(i) => handleRating(i)}

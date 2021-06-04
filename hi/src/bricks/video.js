@@ -125,7 +125,7 @@ export const Video = createVisualComponent({
       setRating(Number(value));
     };
     const nameAuthor = video.authorName + " " + video.authorSurname;
-    const videoDetailModal = <VideoDetail video={video} onRating={onRating} />;
+    const videoDetailModal = <VideoDetail key={video.code} video={video} onRating={onRating} />;
     //@@viewOff:hooks
 
     //@@viewOn:private
@@ -270,7 +270,7 @@ export const Video = createVisualComponent({
       if (screenSize === "xs") {
         return null;
       }
-      let ratingSize = screenSize === "s" ? null : "s";
+      let ratingSize = screenSize === "s" ? "m" : "s";
       return (
         <UU5.Bricks.Section>
           <UU5.Bricks.Rating
