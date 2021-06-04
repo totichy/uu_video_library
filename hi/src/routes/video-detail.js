@@ -192,22 +192,6 @@ export const VideoDetailCode = createVisualComponent({
       });
     }
 
-    async function handleCreateVideo(video) {
-      try {
-        await createVideoRef.current(video);
-        showSuccess(`${videoWithTitle} ${video.title} ${wasCreatedC}`);
-      } catch (e) {
-        if (e.response) {
-          // client received an error response (5xx, 4xx)
-          showError(`${e.response.data.error[0].message}`);
-        } else if (e.request) {
-          // client never received a response, or request never left
-          showError(errorCreated);
-        } else {
-          showError(errorCreated);
-        }
-      }
-    }
 
     function handleCancel() {
       setSelectedVideo(null);
@@ -221,7 +205,7 @@ export const VideoDetailCode = createVisualComponent({
 
     async function handleUpdateVideo(video) {
       try {
-        await updateVideoRef.current(video);
+        await Call.updateVideo({video: video});
         showSuccess(`${videoWithTitle} ${video.title} ${wasUpdatedC}`);
         setSelectedVideo(null);
         setSelectedVideoShow(false);

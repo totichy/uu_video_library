@@ -13,7 +13,7 @@ const CLASS_NAMES = {
   footer: () => Css.css`
   display: flex;
   align-items: center;
-  border-top: 1px solid rgba(0, 93, 167, 0.12);
+  border-bottom: 1px solid rgba(0, 93, 167, 0.12);
   padding: 0 8px;
   margin: 0 8px;
   height: 48px;
@@ -153,11 +153,16 @@ export const VideoDetail = createVisualComponent({
 
       return result;
     }
+
+    function handleUpdate() {
+      onUpdate(video);
+    }
     function handleRating(i) {
       let ratingAverage = ((Number(video.ratingTotal) + i) / (Number(video.ratingCount) + 1)).toFixed(1);
       handleChange(ratingAverage);
       onRating(video, Number(i));
     }
+
     //@@viewOn:interface
     let nameAuthor = video.authorName + " " + video.authorSurname;
 
@@ -168,27 +173,27 @@ export const VideoDetail = createVisualComponent({
 
       let ratingSize = screenSize === "s" ? null : "m";
 
-    if (urlParams === null) {
-      return (
+      if (urlParams === null) {
+        return (
           <UU5.Bricks.Section>
             <UU5.Bricks.Rating count={5} value={video.averageRating} size={ratingSize} colorSchema="orange" />{" "}
             <UU5.Bricks.Lsi lsi={VideoLsi.vote} /> {video.ratingCount}
           </UU5.Bricks.Section>
-      );
-    } else {
-      return (
-        <UU5.Bricks.Section>
-          <UU5.Bricks.Rating
-            count={5}
-            value={mrating}
-            size={"l"}
-            colorSchema="orange"
-            onChange={handleChange}
-            onClick={(i) => handleRating(i)}
-          />
-        </UU5.Bricks.Section>
-      );
-    }
+        );
+      } else {
+        return (
+          <UU5.Bricks.Section>
+            <UU5.Bricks.Rating
+              count={5}
+              value={mrating}
+              size={"m"}
+              colorSchema="orange"
+              onChange={handleChange}
+              onClick={(i) => handleRating(i)}
+            />
+          </UU5.Bricks.Section>
+        );
+      }
     }
 
     function viodeShow() {
@@ -238,21 +243,13 @@ export const VideoDetail = createVisualComponent({
         if (video.videoUrl.includes(".mp3")) {
           return (
             <UU5.Bricks.Div className={CLASS_NAMES.vimeo()}>
-              <UU5.Bricks.Audio
-                src={video.videoUrl}
-                className={CLASS_NAMES.vimeoframe()}
-                autoPlay={false}
-              />
+              <UU5.Bricks.Audio src={video.videoUrl} className={CLASS_NAMES.vimeoframe()} autoPlay={false} />
             </UU5.Bricks.Div>
           );
         } else {
           return (
             <UU5.Bricks.Div className={CLASS_NAMES.vimeo()}>
-              <UU5.Bricks.Video
-                src={video.videoUrl}
-                className={CLASS_NAMES.vimeoframe()}
-                autoPlay={false}
-              />
+              <UU5.Bricks.Video src={video.videoUrl} className={CLASS_NAMES.vimeoframe()} autoPlay={false} />
             </UU5.Bricks.Div>
           );
         }
@@ -260,7 +257,11 @@ export const VideoDetail = createVisualComponent({
         return (
           <UU5.Bricks.Div className={CLASS_NAMES.video()}>
             <UU5.Bricks.Link href={video.videoUrl} target="_blank">
-              <UU5.Bricks.Image src="https://images.pexels.com/photos/918281/pexels-photo-918281.jpeg?auto=compress"className={CLASS_NAMES.novideo()} responsive={true} />
+              <UU5.Bricks.Image
+                src="https://images.pexels.com/photos/918281/pexels-photo-918281.jpeg?auto=compress"
+                className={CLASS_NAMES.novideo()}
+                responsive={true}
+              />
             </UU5.Bricks.Link>
           </UU5.Bricks.Div>
         );
@@ -275,47 +276,99 @@ export const VideoDetail = createVisualComponent({
       );
     }
 
-
     //@@viewOn:render
     if (!video) {
       return null;
     }
-    return (
-      <UU5.Bricks.Div>
-        <UU5.Bricks.Div className={CLASS_NAMES.content()}>
-          <UU5.Bricks.Div>{viodeShow()}</UU5.Bricks.Div>
+
+    if (urlParams === null) {
+      return (
+        <UU5.Bricks.Div>
           <UU5.Bricks.Div className={CLASS_NAMES.content()}>
-            <strong>{"Originál " + videoUrl}</strong>
-            {": "}
-            <UU5.Bricks.Link href={video.videoUrl} target="_blank">
-              {video.videoUrl}
-            </UU5.Bricks.Link>
-            <UU5.Bricks.Div>
-             <strong>{"Server " + videoUrl}</strong>
-            {": "}
-            <UU5.Bricks.Link href= {"video?code=" + video.code}  className={CLASS_NAMES.linkCat()}>
-              {"http://localhost:3000/video?code=" + video.code}
-            </UU5.Bricks.Link>  
-            <UU5.Bricks.Button 
-            onClick={() => {navigator.clipboard.writeText("http://localhost:3000/video?code=" + video.code)}}colorSchema="blue" ><UU5.Bricks.Icon icon="mdi-content-copy"/> {copyButton}</UU5.Bricks.Button>
+            <UU5.Bricks.Div>{viodeShow()}</UU5.Bricks.Div>
+            <UU5.Bricks.Div className={CLASS_NAMES.content()}>
+              <strong>{"Originál " + videoUrl}</strong>
+              {": "}
+              <UU5.Bricks.Link href={video.videoUrl} target="_blank">
+                {video.videoUrl}
+              </UU5.Bricks.Link>
+              <UU5.Bricks.Div>
+                <strong>{"Server " + videoUrl}</strong>
+                {": "}
+                <UU5.Bricks.Link href={"video?code=" + video.code} className={CLASS_NAMES.linkCat()}>
+                  {"http://localhost:3000/video?code=" + video.code}
+                </UU5.Bricks.Link>
+                <UU5.Bricks.Button
+                  onClick={() => {
+                    navigator.clipboard.writeText("http://localhost:3000/video?code=" + video.code);
+                  }}
+                  colorSchema="blue"
+                >
+                  <UU5.Bricks.Icon icon="mdi-content-copy" /> {copyButton}
+                </UU5.Bricks.Button>
+              </UU5.Bricks.Div>
             </UU5.Bricks.Div>
+            <UU5.Bricks.Div className={CLASS_NAMES.content()}>
+              <strong>{description}</strong>
+              {": "}
+              <br />
+              {nl2br(video.description)}
+            </UU5.Bricks.Div>
+            <UU5.Bricks.Div className={CLASS_NAMES.content()}>
+              <strong>{category}</strong>
+              {": "}
+              {categoryList}
+            </UU5.Bricks.Div>
+            <UU5.Bricks.Div className={CLASS_NAMES.content()}>{nameAuthor + " | " + date}</UU5.Bricks.Div>
           </UU5.Bricks.Div>
-          <UU5.Bricks.Div className={CLASS_NAMES.content()}>
-            <strong>{description}</strong>
-            {": "}
-            <br />
-            {nl2br(video.description)}
-          </UU5.Bricks.Div>
-          <UU5.Bricks.Div className={CLASS_NAMES.content()}>
-            <strong>{category}</strong>
-            {": "}
-            {categoryList}
-          </UU5.Bricks.Div>
-          <UU5.Bricks.Div className={CLASS_NAMES.content()}>{nameAuthor + " | " + date}</UU5.Bricks.Div>
+          <UU5.Bricks.Div className={CLASS_NAMES.footer()}>{renderRating()}</UU5.Bricks.Div>
         </UU5.Bricks.Div>
-        <UU5.Bricks.Div className={CLASS_NAMES.footer()}>{renderRating()}</UU5.Bricks.Div>
-      </UU5.Bricks.Div>
-    );
+      );
+    } else {
+      return (
+        <UU5.Bricks.Div>
+          <UU5.Bricks.Div className={CLASS_NAMES.right()}>{renderUpdate()}</UU5.Bricks.Div>
+          <UU5.Bricks.Div className={CLASS_NAMES.footer()}>{renderRating()}</UU5.Bricks.Div>
+          <UU5.Bricks.Div className={CLASS_NAMES.content()}>
+            <UU5.Bricks.Div>{viodeShow()}</UU5.Bricks.Div>
+            <UU5.Bricks.Div className={CLASS_NAMES.content()}>
+              <strong>{"Originál " + videoUrl}</strong>
+              {": "}
+              <UU5.Bricks.Link href={video.videoUrl} target="_blank">
+                {video.videoUrl}
+              </UU5.Bricks.Link>
+              <UU5.Bricks.Div>
+                <strong>{"Server " + videoUrl}</strong>
+                {": "}
+                <UU5.Bricks.Link href={"video?code=" + video.code} className={CLASS_NAMES.linkCat()}>
+                  {"http://localhost:3000/video?code=" + video.code}
+                </UU5.Bricks.Link>
+                <UU5.Bricks.Button
+                  onClick={() => {
+                    navigator.clipboard.writeText("http://localhost:3000/video?code=" + video.code);
+                  }}
+                  colorSchema="blue"
+                >
+                  <UU5.Bricks.Icon icon="mdi-content-copy" /> {copyButton}
+                </UU5.Bricks.Button>
+              </UU5.Bricks.Div>
+            </UU5.Bricks.Div>
+            <UU5.Bricks.Div className={CLASS_NAMES.content()}>
+              <strong>{description}</strong>
+              {": "}
+              <br />
+              {nl2br(video.description)}
+            </UU5.Bricks.Div>
+            <UU5.Bricks.Div className={CLASS_NAMES.content()}>
+              <strong>{category}</strong>
+              {": "}
+              {categoryList}
+            </UU5.Bricks.Div>
+            <UU5.Bricks.Div className={CLASS_NAMES.content()}>{nameAuthor + " | " + date}</UU5.Bricks.Div>
+          </UU5.Bricks.Div>
+        </UU5.Bricks.Div>
+      );
+    }
     //@@viewOff:render
   },
 });
