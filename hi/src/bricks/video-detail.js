@@ -155,6 +155,7 @@ export const VideoDetail = createVisualComponent({
     }
 
     function handleUpdate() {
+
       onUpdate(video);
     }
     function handleRating(i) {

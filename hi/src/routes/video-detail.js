@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import React from "react";
 import "uu5g04-bricks";
-import { createVisualComponent, useState, useLsi, useDataList,useDataObject } from "uu5g04-hooks";
+import { createVisualComponent, useState, useLsi, useDataList, useDataObject } from "uu5g04-hooks";
 import "uu_plus4u5g01-bricks";
 import UU5 from "uu5g04";
 import Video from "video-detail";
@@ -93,28 +93,22 @@ export const VideoDetailCode = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-
     const queryCode = window.location.search;
     const urlParams = new URLSearchParams(queryCode).get("code");
     if (urlParams === null) {
-      return  <UU5.Bricks.Error content={"Video s code neexistuje"} />;
+      return <UU5.Bricks.Error content={"Video s code neexistuje"} />;
     }
 
     let listData = useDataObject({
       handlerMap: {
-          load: Calls.getVideo
+        load: Calls.getVideo,
       },
-      initialDtoIn:  {code: urlParams} 
-  
-  });
-
-  console.log(listData);
+      initialDtoIn: { code: urlParams },
+    });
 
     const [selectedVideo, setSelectedVideo] = useState(null);
     const [selectedVideoShow, setSelectedVideoShow] = useState(false);
     //@@viewOn:hook
-
-  
 
     //@@viewOff:hook
 
@@ -122,12 +116,9 @@ export const VideoDetailCode = createVisualComponent({
     const wasUpdated = VideoLsi.wasUpdated || {};
     const updateError = VideoLsi.errorVideoUpdate || {};
 
-
-
     let videoWithTitle = useLsi(delVideoText);
-    let wasUpdatedC = useLsi(wasUpdated);  
+    let wasUpdatedC = useLsi(wasUpdated);
     let errorUpdated = useLsi(updateError);
-
 
     const errorTtl = Errors.titleError || {};
     let headerError = useLsi(errorTtl);
@@ -137,13 +128,9 @@ export const VideoDetailCode = createVisualComponent({
     let ratingSuccess = useLsi(ratingSuccessCgi);
     const isFailedCgi = VideoLsi.isFailed || {};
     let isFailed = useLsi(isFailedCgi);
- 
+
     const ratingOfCgi = VideoLsi.ratingOf || {};
     let ratingOf = useLsi(ratingOfCgi);
-
-    const loadingCgi = VideoLsi.loading || {};
-    let loading = useLsi(loadingCgi);
-    
 
     const categoryListResult = useDataList({
       handlerMap: {
@@ -180,7 +167,6 @@ export const VideoDetailCode = createVisualComponent({
       });
     }
 
-
     function handleCancel() {
       setSelectedVideo(null);
       setSelectedVideoShow(false);
@@ -189,11 +175,11 @@ export const VideoDetailCode = createVisualComponent({
     function handleUpdateVideo2(video) {
       setSelectedVideo(video);
       setSelectedVideoShow(true);
-        }
+    }
 
     async function handleUpdateVideo(video) {
       try {
-        await Call.updateVideo({video: video});
+        await Calls.updateVideo(video);
         showSuccess(`${videoWithTitle} ${video.title} ${wasUpdatedC}`);
         setSelectedVideo(null);
         setSelectedVideoShow(false);
@@ -210,7 +196,6 @@ export const VideoDetailCode = createVisualComponent({
       }
     }
 
-
     async function handleRatingVideo(video, mrating) {
       try {
         await Calls.ratingVideo({ code: video.code, mrating: Number(mrating) });
@@ -220,9 +205,9 @@ export const VideoDetailCode = createVisualComponent({
           // client received an error response (5xx, 4xx)
           showError(`${e.response.data.error_message}`);
         } else {
-        showError(`${ratingOf} ${video.title} ${isFailed}`);
+          showError(`${ratingOf} ${video.title} ${isFailed}`);
+        }
       }
-    }
     }
 
     function renderLoad() {
@@ -230,24 +215,15 @@ export const VideoDetailCode = createVisualComponent({
     }
 
     function renderError(errorData) {
-      
       return <UU5.Bricks.Error content={errorData.error.response.data.error_message} />;
     }
 
-
     //@@viewOn:private
 
-
-
     function renderReady(video) {
-      
-
-  
       const attrs = UU5.Common.VisualComponent.getAttrs(props);
       return (
         <div>
-           
-      
           <div {...attrs}>
             <VideoUpdateForm
               setSelectedVideo={setSelectedVideo}
@@ -263,11 +239,7 @@ export const VideoDetailCode = createVisualComponent({
             <div>
               <UU5.Bricks.Container>
                 <UU5.Bricks.Header level={3} content={video.title} underline={true} />
-                <Video
-                  video={video}
-                  onUpdate={handleUpdateVideo2}
-                  onRating={handleRatingVideo}
-                />
+                <Video video={video} onUpdate={handleUpdateVideo2} onRating={handleRatingVideo} />
               </UU5.Bricks.Container>
             </div>
           </UU5.Bricks.Section>
@@ -280,28 +252,23 @@ export const VideoDetailCode = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-   
-      
-           if (listData) {
 
-           
-            switch (listData.state) {
-              case "pending":
-              case "pendingNoData":
-                return renderLoad();
-              case "error":
-              case "errorNoData":
-                return renderError(listData.errorData);
-              case "itemPending":
-              case "ready":
-              case "readyNoData":
-              default:
-                return renderReady(listData.data);
-            }
-          }
+    if (listData) {
+      switch (listData.state) {
+        case "pending":
+        case "pendingNoData":
+          return renderLoad();
+        case "error":
+        case "errorNoData":
+          return renderError(listData.errorData);
+        case "itemPending":
+        case "ready":
+        case "readyNoData":
+        default:
+          return renderReady(listData.data);
+      }
+    }
 
-     
-  
     //@@viewOff:render
   },
 });

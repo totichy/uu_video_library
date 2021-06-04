@@ -52,7 +52,6 @@ export const CategoryUpdateForm = createVisualComponent({
 
     //@@viewOn:interface
     function onSave({ values }) {
-      console.log(values);
       if (!values.categoryId || !values.categoryName) {
         return null;
       }
