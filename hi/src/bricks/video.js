@@ -121,8 +121,10 @@ export const Video = createVisualComponent({
     const screenSize = useScreenSize();
     const date = new Date(Number(video.code)).toLocaleDateString("cs-CZ");
     const [mrating, setRating] = useState(video.averageRating);
+    const [ratingVote, setRatingVote] = useState(true);
     const handleChange = (value) => {
       setRating(Number(value));
+      setRatingVote(false);
     };
     const nameAuthor = video.authorName + " " + video.authorSurname;
     const videoDetailModal = <VideoDetail key={video.code} video={video} onRating={onRating} />;
@@ -271,6 +273,13 @@ export const Video = createVisualComponent({
         return null;
       }
       let ratingSize = screenSize === "s" ? "m" : "s";
+      if (!ratingVote) {
+        return (
+          <UU5.Bricks.Section>
+            <UU5.Bricks.Rating count={5} value={video.averageRating} size={ratingSize} colorSchema="orange" />
+          </UU5.Bricks.Section>
+        );
+      } else {
       return (
         <UU5.Bricks.Section>
           <UU5.Bricks.Rating
@@ -283,6 +292,7 @@ export const Video = createVisualComponent({
           />
         </UU5.Bricks.Section>
       );
+      }
     }
 
     if (!video) {
