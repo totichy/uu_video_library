@@ -293,7 +293,7 @@ export const VideoDetail = createVisualComponent({
               <UU5.Bricks.Link href={video.videoUrl} target="_blank">
                 {video.videoUrl}
               </UU5.Bricks.Link>
-              <UU5.Bricks.Div className={CLASS_NAMES.content()}>
+              <UU5.Bricks.Div className={CLASS_NAMES.textContent()}>
                 <strong>{"Server " + videoUrl}</strong>
                 {": "}
                 <UU5.Bricks.Link href={"video?code=" + video.code} className={CLASS_NAMES.linkCat()}>
@@ -338,7 +338,7 @@ export const VideoDetail = createVisualComponent({
               <UU5.Bricks.Link href={video.videoUrl} target="_blank">
                 {video.videoUrl}
               </UU5.Bricks.Link>
-              <UU5.Bricks.Div  className={CLASS_NAMES.content()}>
+              <UU5.Bricks.Div  className={CLASS_NAMES.textContent()}>
                 <strong>{"Server " + videoUrl}</strong>
                 {": "}
                 <UU5.Bricks.Link href={"video?code=" + video.code} className={CLASS_NAMES.linkCat()}>
