@@ -9,7 +9,7 @@ import "uu_plus4u5g01-app";
 import Left from "left";
 import About from "about";
 import Home from "home";
-//import VideoDetailRoute from "route-video-detail";
+import VideoDetailCode from "route-video-detail";
 import Categories from "categories";
 import NotFoundRoute from "not-found";
 //@@viewOff:imports
@@ -21,12 +21,13 @@ const STATICS = {
 };
 
 //@@const About = UU5.Common.Component.lazy(() => import("about"));
+const vquery = new URLSearchParams(window.location).get("code");
 const DEFAULT_USE_CASE = "home";
 const ROUTES = {
   "": DEFAULT_USE_CASE,
   home: { component: <Home /> },
   notFound: { component: <NotFoundRoute /> },
-  //video: { component: <VideoDetailRoute /> },
+  video: { component: <VideoDetailCode /> },
   about: { component: <About /> },
   categories: { component: <Categories /> },
 };
@@ -43,7 +44,13 @@ export const Spa = createVisualComponent({
     //@@viewOn:private
     let [initialActiveItemId] = useState(() => {
         let url = UU5.Common.Url.parse(window.location.href);
-        return url.useCase || DEFAULT_USE_CASE;
+        if(url === "test" || url === "category" ) {
+          return "home";
+        } else if (url === "video"  && !vquery) {
+          return "notFound";
+
+        }
+        return url.useCase || "home";
       });
     //@@viewOff:private
 
@@ -74,8 +81,10 @@ export const Spa = createVisualComponent({
              >
             <Plus4U5.App.MenuConsumer>
               {({ setActiveItemId }) => {
-                let handleRouteChanged = ({ useCase, parameters }) => setActiveItemId(useCase || DEFAULT_USE_CASE);
-                return <UU5.Common.Router routes={ROUTES} notFoundRoute="notFound" controlled={false} onRouteChanged={handleRouteChanged} />;
+                let handleRouteChanged = ({ useCase, parameters }) => setActiveItemId(useCase || "home");
+                return <UU5.Common.Router 
+                basePath={"/"}
+                routes={ROUTES} notFoundRoute="notFound" controlled={false} onRouteChanged={handleRouteChanged} />;
               }}
             </Plus4U5.App.MenuConsumer>
           </Plus4U5.App.Page >
