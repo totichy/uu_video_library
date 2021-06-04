@@ -76,16 +76,15 @@ export const Home = createVisualComponent({
     let ratingSuccess = useLsi(ratingSuccessCgi);
     const isFailedCgi = VideoLsi.isFailed || {};
     let isFailed = useLsi(isFailedCgi);
-    
+
     const deletionOfCgi = VideoLsi.deletionOf || {};
     let deletionOf = useLsi(deletionOfCgi);
-    
+
     const ratingOfCgi = VideoLsi.ratingOf || {};
     let ratingOf = useLsi(ratingOfCgi);
 
     const loadingCgi = VideoLsi.loading || {};
     let loading = useLsi(loadingCgi);
-    
 
     function categorySelection(queryString) {
       let urlParams = new URLSearchParams(queryString);
@@ -208,17 +207,17 @@ export const Home = createVisualComponent({
       try {
         await ratingVideoRef.current({ code: video.code, mrating: Number(mrating) });
         showSuccess(ratingSuccess + mrating);
-      }  catch (e) {
+      } catch (e) {
         if (e.response) {
           // client received an error response (5xx, 4xx)
           showError(`${e.response.data.error_message}`);
         } else {
-        showError(`${ratingOf} ${video.title} ${isFailed}`);
+          showError(`${ratingOf} ${video.title} ${isFailed}`);
+        }
       }
     }
-    }
     function renderLoad() {
-      return <UU5.Bricks.Loading/>;
+      return <UU5.Bricks.Loading />;
     }
 
     function renderError(errorData) {
@@ -300,15 +299,13 @@ export const Home = createVisualComponent({
     //@@viewOn:render
 
     return (
-      <div>     
+      <div>
         <VideoProvider>
-
           {({ state, data, newData, pendingData, errorData, handlerMap }) => {
             createVideoRef.current = handlerMap.createVideo;
             deleteVideoRef.current = handlerMap.deleteVideo;
             ratingVideoRef.current = handlerMap.ratingVideo;
             updateVideoRef.current = handlerMap.updateVideo;
-            
 
             switch (state) {
               case "pending":

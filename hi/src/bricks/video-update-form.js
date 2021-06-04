@@ -10,7 +10,7 @@ import Errors from "config-error";
 
 const STATICS = {
   //@@viewOn:statics
-  displayName:"VideoUpdateForm",
+  displayName: "VideoUpdateForm",
   //@@viewOff:statics
 };
 
@@ -38,7 +38,6 @@ export const VideoUpdateForm = createVisualComponent({
   //@@viewOff:defaultProps
 
   render({ onCancel, onUpdateVideo, setSelectedVideo, selectedVideo, selectedVideoShow }) {
-  
     //@@viewOn:private
     function validateText(opt) {
       let result = { feedback: "initial", value: opt.value };
@@ -55,12 +54,15 @@ export const VideoUpdateForm = createVisualComponent({
     }
 
     function isURL(str) {
-      const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-        '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+      const pattern = new RegExp(
+        "^(https?:\\/\\/)?" + // protocol
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+          "(\\#[-a-z\\d_]*)?$",
+        "i"
+      ); // fragment locator
       return !!pattern.test(str);
     }
     const letters = /^[A-Za-z,ňďěščřžýáíéůúäÄĚŠČŘŽÝÁÍÉÚŮŇ]+$/;
@@ -94,7 +96,7 @@ export const VideoUpdateForm = createVisualComponent({
 
       if (!isURL(values.videoUrl)) {
         errorMessage = errorMessage + validURL;
-       
+
         UU5.Environment.getPage().getAlertBus().addAlert({
           content: validURL,
           colorSchema: "red",
@@ -103,13 +105,11 @@ export const VideoUpdateForm = createVisualComponent({
           block: true,
           stacked: true,
         });
-
       }
-     
-   
-  //@@    if(!validator.isAlpha(values.authorName) || !validator.isAlpha(values.authorSurname))  {
-    if (!values.authorName.match(letters) || !values.authorSurname.match(letters)) {
-      errorMessage = errorMessage + validTitle;
+
+      //@@    if(!validator.isAlpha(values.authorName) || !validator.isAlpha(values.authorSurname))  {
+      if (!values.authorName.match(letters) || !values.authorSurname.match(letters)) {
+        errorMessage = errorMessage + validTitle;
         UU5.Environment.getPage().getAlertBus().addAlert({
           content: nameError,
           colorSchema: "red",
@@ -129,7 +129,6 @@ export const VideoUpdateForm = createVisualComponent({
           header: headerError,
           block: true,
           stacked: true,
-
         });
       }
       if (values.description.length < 3 || values.description.length > 500) {
@@ -140,7 +139,7 @@ export const VideoUpdateForm = createVisualComponent({
           closeTimer: 3000,
           block: true,
           stacked: true,
-          header: headerError
+          header: headerError,
         });
       }
 
@@ -211,65 +210,65 @@ export const VideoUpdateForm = createVisualComponent({
     selectedVideo = selectedVideo || {};
     return (
       <UU5.Bricks.Modal size="l" offsetTop={100} shown={true}>
-         <UU5.Bricks.Container>
-        <UU5.Bricks.Header level={5} content={headerAdd} underline={true} />
-        <UU5.Bricks.Card className="padding-s" colorSchema="indigo">
-          <UU5.Forms.Form onSave={onSave} onCancel={onCancel} labelColWidth="xs-12 m-3" inputColWidth="xs-12 m-9">
-            <UU5.Forms.Text
-              name="code"
-              label="Code"
-              required
-              value={selectedVideo && selectedVideo.code}
-              readOnly={true}
-            />
-            <UU5.Forms.Text
-              inputAttrs={{ maxLength: 255 }}
-              name="title"
-              value={selectedVideo && selectedVideo.title}
-              label={titles}
-              required
-            />
-            <UU5.Forms.Text
-              inputAttrs={{ maxLength: 255 }}
-              name="videoUrl"
-              label={videoUrl}
-              value={selectedVideo && selectedVideo.videoUrl}
-              required
-            />
-            <UU5.Forms.Select
-              label={categoriesCg}
-              name="category"
-              value={selectedVideo && selectedVideo.category}
-              multiple
-              required
-            >
-              {renderCategories()}
-            </UU5.Forms.Select>
-            <UU5.Forms.Text
-              inputAttrs={{ maxLength: 255 }}
-              name="authorName"
-              label={autorName}
-              value={selectedVideo && selectedVideo.authorName}
-              required
-            />
-            <UU5.Forms.Text
-              inputAttrs={{ maxLength: 255 }}
-              name="authorSurname"
-              label={autorSurname}
-              value={selectedVideo && selectedVideo.authorSurname}
-              required
-            />
-            <UU5.Forms.TextArea
-              inputAttrs={{ maxLength: 500 }}
-              name="description"
-              label={description}
-              onValidate={validateText}
-              value={selectedVideo && selectedVideo.description}
-              required
-            />
-            <UU5.Forms.Controls />
-          </UU5.Forms.Form>
-        </UU5.Bricks.Card>
+        <UU5.Bricks.Container>
+          <UU5.Bricks.Header level={5} content={headerAdd} underline={true} />
+          <UU5.Bricks.Card className="padding-s" colorSchema="indigo">
+            <UU5.Forms.Form onSave={onSave} onCancel={onCancel} labelColWidth="xs-12 m-3" inputColWidth="xs-12 m-9">
+              <UU5.Forms.Text
+                name="code"
+                label="Code"
+                required
+                value={selectedVideo && selectedVideo.code}
+                readOnly={true}
+              />
+              <UU5.Forms.Text
+                inputAttrs={{ maxLength: 255 }}
+                name="title"
+                value={selectedVideo && selectedVideo.title}
+                label={titles}
+                required
+              />
+              <UU5.Forms.Text
+                inputAttrs={{ maxLength: 255 }}
+                name="videoUrl"
+                label={videoUrl}
+                value={selectedVideo && selectedVideo.videoUrl}
+                required
+              />
+              <UU5.Forms.Select
+                label={categoriesCg}
+                name="category"
+                value={selectedVideo && selectedVideo.category}
+                multiple
+                required
+              >
+                {renderCategories()}
+              </UU5.Forms.Select>
+              <UU5.Forms.Text
+                inputAttrs={{ maxLength: 255 }}
+                name="authorName"
+                label={autorName}
+                value={selectedVideo && selectedVideo.authorName}
+                required
+              />
+              <UU5.Forms.Text
+                inputAttrs={{ maxLength: 255 }}
+                name="authorSurname"
+                label={autorSurname}
+                value={selectedVideo && selectedVideo.authorSurname}
+                required
+              />
+              <UU5.Forms.TextArea
+                inputAttrs={{ maxLength: 500 }}
+                name="description"
+                label={description}
+                onValidate={validateText}
+                value={selectedVideo && selectedVideo.description}
+                required
+              />
+              <UU5.Forms.Controls />
+            </UU5.Forms.Form>
+          </UU5.Bricks.Card>
         </UU5.Bricks.Container>
         <UU5.Bricks.AlertBus />
       </UU5.Bricks.Modal>

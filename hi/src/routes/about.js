@@ -100,7 +100,6 @@ export const About = createVisualComponent({
     const otherAuthors = getAuthors(AboutCfg.otherAuthors);
     const attrs = UU5.Common.VisualComponent.getAttrs(props, CLASS_NAMES.main());
     return (
-      
       <UU5.Bricks.Section {...attrs}>
         <Plus4U5.App.ArtifactSetter territoryBaseUri="" artifactId="" />
         <Plus4U5.App.About header={header} content={about} />

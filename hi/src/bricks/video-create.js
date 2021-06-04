@@ -125,14 +125,16 @@ export const VideoCreate = createComponent({
       setMode(Mode.FORM);
     }
 
-
     function isURL(str) {
-      const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-        '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+      const pattern = new RegExp(
+        "^(https?:\\/\\/)?" + // protocol
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+          "(\\#[-a-z\\d_]*)?$",
+        "i"
+      ); // fragment locator
       return !!pattern.test(str);
     }
 
@@ -162,9 +164,8 @@ export const VideoCreate = createComponent({
           stacked: true,
         });
       }
-    
 
-        if (!values.authorName.match(letters) || !values.authorSurname.match(letters)) {
+      if (!values.authorName.match(letters) || !values.authorSurname.match(letters)) {
         errorMessage = errorMessage + validTitle;
         UU5.Environment.getPage().getAlertBus().addAlert({
           content: nameError,
@@ -237,7 +238,7 @@ export const VideoCreate = createComponent({
               <UU5.Bricks.Div className={CLASS_NAMES.searchSection()}>
                 <form action="/" method="get" autoComplete="off" onSubmit={onSubmitt}>
                   <input
-                       className={CLASS_NAMES.input()}
+                    className={CLASS_NAMES.input()}
                     value={searchQuery}
                     onInput={(e) => setSearchQuery(e.target.value)}
                     type="text"
@@ -246,11 +247,11 @@ export const VideoCreate = createComponent({
                     onChange={handleFormChange}
                     name="s"
                   />
-                  <UU5.Bricks.Icon icon="mdi-magnify"  />
+                  <UU5.Bricks.Icon icon="mdi-magnify" />
                 </form>
               </UU5.Bricks.Div>
             </UU5.Bricks.Div>
-            <UU5.Bricks.Div  className={CLASS_NAMES.addVideoItem()}>
+            <UU5.Bricks.Div className={CLASS_NAMES.addVideoItem()}>
               <UU5.Bricks.Button onClick={handleClick} content={addButton} colorSchema="blue" />
             </UU5.Bricks.Div>
           </UU5.Bricks.Div>
