@@ -119,24 +119,15 @@ export const VideoDetailCode = createVisualComponent({
     //@@viewOff:hook
 
     const delVideoText = VideoLsi.delVideo || {};
-    const wasDeleted = VideoLsi.wasDeleted || {};
-    const wasCreated = VideoLsi.wasCreated || {};
     const wasUpdated = VideoLsi.wasUpdated || {};
-    const createError = VideoLsi.errorCreate || {};
     const updateError = VideoLsi.errorVideoUpdate || {};
-    const errorServerData = VideoLsi.errorServer || {};
-    const AllVideos = VideoLsi.AllVideos || {};
 
 
-    let VideoListHeader = useLsi(AllVideos);
+
     let videoWithTitle = useLsi(delVideoText);
-    let wasDeletedC = useLsi(wasDeleted);
-    let wasCreatedC = useLsi(wasCreated);
-    let wasUpdatedC = useLsi(wasUpdated);
-    let errorCreated = useLsi(createError);
+    let wasUpdatedC = useLsi(wasUpdated);  
     let errorUpdated = useLsi(updateError);
-    let serverErrorData = useLsi(errorServerData);
-    let VideoHeader = VideoListHeader;
+
 
     const errorTtl = Errors.titleError || {};
     let headerError = useLsi(errorTtl);
@@ -146,10 +137,7 @@ export const VideoDetailCode = createVisualComponent({
     let ratingSuccess = useLsi(ratingSuccessCgi);
     const isFailedCgi = VideoLsi.isFailed || {};
     let isFailed = useLsi(isFailedCgi);
-    
-    const deletionOfCgi = VideoLsi.deletionOf || {};
-    let deletionOf = useLsi(deletionOfCgi);
-    
+ 
     const ratingOfCgi = VideoLsi.ratingOf || {};
     let ratingOf = useLsi(ratingOfCgi);
 
@@ -178,7 +166,7 @@ export const VideoDetailCode = createVisualComponent({
         colorSchema: "red",
         closeTimer: 3000,
         header: headerError,
-        block: true,
+        stacked: true,
       });
     }
 
@@ -188,7 +176,7 @@ export const VideoDetailCode = createVisualComponent({
         colorSchema: "green",
         closeTimer: 3000,
         header: headerDone,
-        block: true,
+        stacked: true,
       });
     }
 
@@ -238,7 +226,7 @@ export const VideoDetailCode = createVisualComponent({
     }
 
     function renderLoad() {
-      return <UU5.Bricks.Loading>{loading}</UU5.Bricks.Loading>;
+      return <UU5.Bricks.Loading />;
     }
 
     function renderError(errorData) {

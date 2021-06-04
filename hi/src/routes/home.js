@@ -218,7 +218,7 @@ export const Home = createVisualComponent({
     }
     }
     function renderLoad() {
-      return <UU5.Bricks.Loading>{loading}</UU5.Bricks.Loading>;
+      return <UU5.Bricks.Loading/>;
     }
 
     function renderError(errorData) {
@@ -300,8 +300,9 @@ export const Home = createVisualComponent({
     //@@viewOn:render
 
     return (
-      <div>
+      <div>     
         <VideoProvider>
+
           {({ state, data, newData, pendingData, errorData, handlerMap }) => {
             createVideoRef.current = handlerMap.createVideo;
             deleteVideoRef.current = handlerMap.deleteVideo;
