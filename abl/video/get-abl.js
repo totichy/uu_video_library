@@ -10,7 +10,7 @@ let dao = new LibraryDao(
 async function GetAbl(req, res) {
   const { code } = req;
 
-  if (!code && typeof string && string.length < 30) {
+  if (!code && typeof string && code.length > 30) {
     return res
       .status(400)
       .json({

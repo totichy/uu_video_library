@@ -240,7 +240,7 @@ export const Video = createVisualComponent({
         return (
           <UU5.Bricks.Div className={CLASS_NAMES.vimeo()}>
             <UU5.Bricks.Link href={video.videoUrl} target="_blank">
-              <UU5.Bricks.Image src="https://images.pexels.com/photos/918281/pexels-photo-918281.jpeg?auto=compress" className={CLASS_NAMES.vimeoframe()} responsive={false} />
+              <UU5.Bricks.Image src="https://images.pexels.com/photos/918281/pexels-photo-918281.jpeg?auto=compress" className={CLASS_NAMES.vimeoframe()} responsive={true} />
             </UU5.Bricks.Link>
           </UU5.Bricks.Div>
         );

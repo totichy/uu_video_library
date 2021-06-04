@@ -208,9 +208,14 @@ export const Home = createVisualComponent({
       try {
         await ratingVideoRef.current({ code: video.code, mrating: Number(mrating) });
         showSuccess(ratingSuccess + mrating);
-      } catch (e) {
+      }  catch (e) {
+        if (e.response) {
+          // client received an error response (5xx, 4xx)
+          showError(`${e.response.data.error_message}`);
+        } else {
         showError(`${ratingOf} ${video.title} ${isFailed}`);
       }
+    }
     }
     function renderLoad() {
       return <UU5.Bricks.Loading>{loading}</UU5.Bricks.Loading>;

@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import React from "react";
 import UU5 from "uu5g04";
-import { createVisualComponent, useScreenSize, useLsi, useDataList } from "uu5g04-hooks";
+import { createVisualComponent, useScreenSize, useLsi, useDataList, useState } from "uu5g04-hooks";
 import { nl2br } from "string-helper";
 import VideoLsi from "config-video";
 import Calls from "calls";
@@ -86,24 +86,34 @@ export const VideoDetail = createVisualComponent({
       videoUrl: UU5.PropTypes.string.isRequired,
       description: UU5.PropTypes.string.isRequired,
       visible: UU5.PropTypes.bool,
-      averageRating: UU5.PropTypes.number.isRequired,
+      averageRating: UU5.PropTypes.number,
       ratingCount: UU5.PropTypes.number,
       ratingTotal: UU5.PropTypes.number,
     }),
+    onRating: UU5.PropTypes.func,
+    onUpdate: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
     video: null,
+    onRating: () => {},
+    onUpdate: () => {},
   },
   //@@viewOff:defaultProps
 
-  render({ video }) {
+  render({ video, onRating, onUpdate }) {
     //@@viewOn: hooks
     const screenSize = useScreenSize();
-    //@@viewOff: hooks
 
+    const queryCode = window.location.search;
+    const urlParams = new URLSearchParams(queryCode).get("code");
+    //@@viewOff: hooks
+    const [mrating, setRating] = useState(video.averageRating);
+    const handleChange = (value) => {
+      setRating(Number(value));
+    };
     //@@viewOn:private
     const descCg = Form.descriptionCgi || {};
     const urlCg = Form.urlCgi || {};
@@ -141,7 +151,11 @@ export const VideoDetail = createVisualComponent({
 
       return result;
     }
-
+    function handleRating(i) {
+      let ratingAverage = ((Number(video.ratingTotal) + i) / (Number(video.ratingCount) + 1)).toFixed(1);
+      handleChange(ratingAverage);
+      onRating(video, Number(i));
+    }
     //@@viewOn:interface
     let nameAuthor = video.authorName + " " + video.authorSurname;
 
@@ -151,12 +165,28 @@ export const VideoDetail = createVisualComponent({
       }
 
       let ratingSize = screenSize === "s" ? null : "m";
+
+    if (urlParams === null) {
       return (
           <UU5.Bricks.Section>
             <UU5.Bricks.Rating count={5} value={video.averageRating} size={ratingSize} colorSchema="orange" />{" "}
             <UU5.Bricks.Lsi lsi={VideoLsi.vote} /> {video.ratingCount}
           </UU5.Bricks.Section>
       );
+    } else {
+      return (
+        <UU5.Bricks.Section>
+          <UU5.Bricks.Rating
+            count={5}
+            value={mrating}
+            size={ratingSize}
+            colorSchema="orange"
+            onChange={handleChange}
+            onClick={(i) => handleRating(i)}
+          />
+        </UU5.Bricks.Section>
+      );
+    }
     }
 
     function viodeShow() {
@@ -208,7 +238,6 @@ export const VideoDetail = createVisualComponent({
             <UU5.Bricks.Div className={CLASS_NAMES.vimeo()}>
               <UU5.Bricks.Audio
                 src={video.videoUrl}
-                poster={"/assets/logo.png"}
                 className={CLASS_NAMES.vimeoframe()}
                 autoPlay={false}
               />
@@ -220,7 +249,6 @@ export const VideoDetail = createVisualComponent({
               <UU5.Bricks.Video
                 src={video.videoUrl}
                 className={CLASS_NAMES.vimeoframe()}
-                poster={"/assets/logo.png"}
                 autoPlay={false}
               />
             </UU5.Bricks.Div>
@@ -229,14 +257,22 @@ export const VideoDetail = createVisualComponent({
       } else {
         return (
           <UU5.Bricks.Div className={CLASS_NAMES.video()}>
-            {" "}
             <UU5.Bricks.Link href={video.videoUrl} target="_blank">
-              <UU5.Bricks.Image src={"/assets/novideo.png"} className={CLASS_NAMES.novideo()} />
+              <UU5.Bricks.Image src="https://images.pexels.com/photos/918281/pexels-photo-918281.jpeg?auto=compress"className={CLASS_NAMES.novideo()} responsive={true} />
             </UU5.Bricks.Link>
           </UU5.Bricks.Div>
         );
       }
     }
+
+    function renderUpdate() {
+      return (
+        <UU5.Bricks.Button onClick={handleUpdate} bgStyle="transparent" colorSchema="green">
+          <UU5.Bricks.Icon icon="mdi-pencil" />
+        </UU5.Bricks.Button>
+      );
+    }
+
 
     //@@viewOn:render
     if (!video) {

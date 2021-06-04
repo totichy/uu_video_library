@@ -1,11 +1,9 @@
 //@@viewOn:imports
 import React from "react";
 import "uu5g04-bricks";
-import { createVisualComponent, useRef, useState, useLsi, useDataList,useDataObject } from "uu5g04-hooks";
+import { createVisualComponent, useState, useLsi, useDataList,useDataObject } from "uu5g04-hooks";
 import "uu_plus4u5g01-bricks";
 import UU5 from "uu5g04";
-import VideoProvider from "video-provider";
-import VideoCreate from "video-create";
 import Video from "video-detail";
 import VideoLsi from "config-video";
 import Calls from "calls";
@@ -110,18 +108,14 @@ export const VideoDetailCode = createVisualComponent({
   
   });
 
-
-  let { state, data, errorData, pendingData, handlerMap } = listData;
-
+  console.log(listData);
 
     const [selectedVideo, setSelectedVideo] = useState(null);
     const [selectedVideoShow, setSelectedVideoShow] = useState(false);
     //@@viewOn:hook
-    const createVideoRef = useRef();
-    const deleteVideoRef = useRef();
-    const ratingVideoRef = useRef();
-    const updateVideoRef = useRef();
+
   
+
     //@@viewOff:hook
 
     const delVideoText = VideoLsi.delVideo || {};
@@ -163,19 +157,19 @@ export const VideoDetailCode = createVisualComponent({
     let loading = useLsi(loadingCgi);
     
 
-    // const categoryListResult = useDataList({
-    //   handlerMap: {
-    //     load: Calls.listCategory,
-    //   },
-    //   initialDtoIn: { data: {} },
-    // });
+    const categoryListResult = useDataList({
+      handlerMap: {
+        load: Calls.listCategory,
+      },
+      initialDtoIn: { data: {} },
+    });
 
-    // const categoryMap = {};
-    // if (categoryListResult.data) {
-    //   categoryListResult.data.forEach(
-    //     (category) => (categoryMap[category.data.categoryId] = category.data.categoryName)
-    //   );
-    // }
+    const categoryMap = {};
+    if (categoryListResult.data) {
+      categoryListResult.data.forEach(
+        (category) => (categoryMap[category.data.categoryId] = category.data.categoryName)
+      );
+    }
 
     //@@viewOn:private
     function showError(content) {
@@ -244,37 +238,28 @@ export const VideoDetailCode = createVisualComponent({
       }
     }
 
-    async function handleDeleteVideo(video) {
+
+    async function handleRatingVideo(video, mrating) {
       try {
-        await deleteVideoRef.current({ code: video.code }, video.code);
-        showSuccess(`${videoWithTitle} ${video.title} ${wasDeletedC}`);
+        await Calls.ratingVideo({ code: video.code, mrating: Number(mrating) });
+        showSuccess(ratingSuccess + mrating);
       } catch (e) {
         if (e.response) {
           // client received an error response (5xx, 4xx)
           showError(`${e.response.data.error_message}`);
-        } else if (e.request) {
-          // client never received a response, or request never left
-          showError(`${deletionOf} ${video.title} ${isFailed}`);
         } else {
-          showError(`${deletionOf} ${video.title} ${isFailed}`);
-        }
-      }
-    }
-
-    async function handleRatingVideo(video, mrating) {
-      try {
-        await ratingVideoRef.current({ code: video.code, mrating: Number(mrating) });
-        showSuccess(ratingSuccess + mrating);
-      } catch (e) {
         showError(`${ratingOf} ${video.title} ${isFailed}`);
       }
     }
+    }
+
     function renderLoad() {
       return <UU5.Bricks.Loading>{loading}</UU5.Bricks.Loading>;
     }
 
     function renderError(errorData) {
-      return <UU5.Bricks.Error content={errorData.error_message} />;
+      
+      return <UU5.Bricks.Error content={errorData.error.response.data.error_message} />;
     }
 
 
@@ -302,16 +287,12 @@ export const VideoDetailCode = createVisualComponent({
             />
           </div>
 
-            <VideoCreate
-              onCreate={handleCreateVideo}
-            />
           <UU5.Bricks.Section>
             <div>
               <UU5.Bricks.Container>
-                <UU5.Bricks.Header level={3} content={VideoHeader} underline={true} />
+                <UU5.Bricks.Header level={3} content={video.title} underline={true} />
                 <Video
                   video={video}
-                  onDelete={handleDeleteVideo}
                   onUpdate={handleUpdateVideo2}
                   onRating={handleRatingVideo}
                 />
@@ -328,29 +309,27 @@ export const VideoDetailCode = createVisualComponent({
 
     //@@viewOn:render
    
-    return (
-      <div>
       
-          {({ state, data, newData, pendingData, errorData, handlerMap }) => {
+           if (listData) {
 
            
-            switch (state) {
+            switch (listData.state) {
               case "pending":
               case "pendingNoData":
                 return renderLoad();
               case "error":
               case "errorNoData":
-                return renderError(errorData);
+                return renderError(listData.errorData);
               case "itemPending":
               case "ready":
               case "readyNoData":
               default:
-                return renderReady(data);
+                return renderReady(listData.data);
             }
-          }}
+          }
 
-      </div>
-    );
+     
+  
     //@@viewOff:render
   },
 });

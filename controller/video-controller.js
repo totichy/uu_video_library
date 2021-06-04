@@ -16,8 +16,8 @@ router.post("/create", async (req, res) => {
 });
 
 router.get("/get", async (req, res) => {
-  const { body } = req;
-  await GetAbl(body, res);
+ 
+  await GetAbl(req.query, res);
 });
 
 router.post("/update", async (req, res) => {

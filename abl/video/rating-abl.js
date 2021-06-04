@@ -22,6 +22,13 @@ async function RatingAbl(req, res) {
 
   if (code) {
     let video = await dao.getVideo(code);
+
+    if (!video) {
+      return res
+        .status(400)
+        .json({ error_message: `Video with code '${code}' doesn't exist.` });
+    }
+    
     let newRating = (
       (Number(video.ratingTotal) + mrating) /
       (Number(video.ratingCount) + 1)
