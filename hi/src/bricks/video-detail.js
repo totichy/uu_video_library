@@ -111,8 +111,10 @@ export const VideoDetail = createVisualComponent({
     const urlParams = new URLSearchParams(queryCode).get("code");
     //@@viewOff: hooks
     const [mrating, setRating] = useState(video.averageRating);
+    const [ratingVote, setRatingVote] = useState(true);
     const handleChange = (value) => {
       setRating(Number(value));
+      setRatingVote(false);
     };
     //@@viewOn:private
     const descCg = Form.descriptionCgi || {};
@@ -174,7 +176,7 @@ export const VideoDetail = createVisualComponent({
 
       let ratingSize = screenSize === "s" ? null : "m";
 
-      if (urlParams === null) {
+      if (urlParams === null || !ratingVote) {
         return (
           <UU5.Bricks.Section>
             <UU5.Bricks.Rating count={5} value={video.averageRating} size={ratingSize} colorSchema="orange" />{" "}
