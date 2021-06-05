@@ -40,6 +40,7 @@ async function CreateAbl(req, res) {
 
   try {
     await dao.addVideo(video);
+    res.status(200).json(video);
   } catch (e) {
     if (e.code === "DUPLICATE_CODE" || e.code === "DUPLICATE_URL") {
       res.status(400).json({ error: e });
@@ -49,7 +50,6 @@ async function CreateAbl(req, res) {
       res.status(500).json({ error: e });
     }
   }
-  res.status(200).json(video);
 }
 
 module.exports = CreateAbl;

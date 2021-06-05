@@ -9,7 +9,7 @@ export const ErrorsLsi = {
   },
   validURL: {
     cs: "Prosím zadejte validní URL adresu videa s https://.",
-    en: "<p>Please enter a valid video URL whith https://.",
+    en: "Please enter a valid video URL whith https://.",
   },
   validTitle: {
     cs: "Prosím Název nesmí být kratší než 3 znaky a delší než 100 znaků.",
