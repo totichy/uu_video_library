@@ -55,13 +55,14 @@ class LibraryDao {
       result = videos.find((b) => {
         return b.code === code;
       });
-     
-    } else {
-      const e = new Error(`Video with code '${code}' does not exist.`);
-      e.code = "FAILED_TO_LOAD_VIDEO";
-      throw e;
-    }
 
+      if (!result) {
+        const e = new Error(`Video with code '${code}' does not exist.`);
+        e.code = "FAILED_TO_LOAD_VIDEO";
+        throw e;  
+      } 
+
+    } 
     return result;
   }
 

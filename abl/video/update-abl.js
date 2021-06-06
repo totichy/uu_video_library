@@ -90,7 +90,7 @@ async function UpdateAbl(req, res) {
     }
   } else {
     res.status(400).json({
-      error_message: "Invalid dtoIn",
+      error_message: "Invalid input data",
     });
   }
 }

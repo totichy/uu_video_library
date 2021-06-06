@@ -26,18 +26,10 @@ async function GetAbl(req, query, res) {
   try {
     const video = await dao.getVideo(codeFinal);
  
-    if (!video) {
-      return res
-        .status(400)
-        .json({
-          error_message: `Video with code '${codeFinal}' doesn't exist.`,
-        });
-    }
-
     res.status(200).json(video);
   } catch (e) {
     if (e.code === "FAILED_TO_LOAD_VIDEO") {
-      return res.status(400).json({ error: e });
+      return res.status(400).json({ error: `Video with code '${code}' does not exist.` });
     } else {
       return res.status(500).json({ error: e });
     }
