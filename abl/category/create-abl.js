@@ -35,7 +35,7 @@ async function CreateAbl(req, res) {
     } else {
       res.status(500);
     }
-    return res.json({ error_message: e.message });
+    return res.status(400).json({ error_message: e.message });
   }
 
 
