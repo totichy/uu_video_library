@@ -44,9 +44,9 @@ async function RatingAbl(req, res) {
       res.status(200).json(result);
     } catch (e) {
       if (e.code === "FAILED_TO_GET_VIDEO") {
-        res.status(400).json({ error_message: e });
+        res.status(400).json({ error_message: "Failed to load video." });
       } else if (e.code === "FAILED_TO_UPDATE_VIDEO") {
-        res.status(400).json({ error_message: e });
+        res.status(400).json({ error_message: "Failed to update video" });
       }
     }
   } else {
