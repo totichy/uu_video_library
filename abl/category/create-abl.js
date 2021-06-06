@@ -26,6 +26,7 @@ async function CreateAbl(req, res) {
 
   try {
     await dao.addCategory(category);
+      res.status(200).json(category);
   } catch (e) {
     if (e.code == "DUPLICATE_CODE" || e.code == "DUPLICATE_CATEGORY") {
       res.status(400);
@@ -37,7 +38,7 @@ async function CreateAbl(req, res) {
     return res.json({ error_message: e.message });
   }
 
-  res.json(category);
+
 }
 
 module.exports = CreateAbl;
