@@ -23,7 +23,7 @@ async function GetAbl(req, res) {
       error_message: `Category with code '${categoryId}' doesn't exist.`,
     });
   }
-  res.json(category);
+  res.status(200).json(category);
 } catch (e) {
   if (e.code === "FAILED_TO_LOAD_CATEGORY") {
     return res.status(400).json({ error: e });
