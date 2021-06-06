@@ -40,18 +40,19 @@ async function RatingAbl(req, res) {
 
     try {
       let result = await dao.updateVideo(video);
-
       res.status(200).json(result);
     } catch (e) {
       if (e.code === "FAILED_TO_GET_VIDEO") {
         res.status(400).json({ error_message: "Failed to load video." });
       } else if (e.code === "FAILED_TO_UPDATE_VIDEO") {
         res.status(400).json({ error_message: "Failed to update video" });
+      } else {
+      res.status(%00).json({ error_message: e }
       }
     }
   } else {
     res.status(400).json({
-      error_message: "Invalid dtoIn",
+      error_message: "Invalid input data.",
     });
   }
 }
