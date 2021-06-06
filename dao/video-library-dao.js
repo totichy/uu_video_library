@@ -55,6 +55,7 @@ class LibraryDao {
       result = videos.find((b) => {
         return b.code === code;
       });
+     
     } else {
       const e = new Error(`Video with code '${code}' does not exist.`);
       e.code = "FAILED_TO_LOAD_VIDEO";
@@ -142,7 +143,8 @@ class LibraryDao {
     for (let code in videos) {
       if (
         !name ||
-        videos[code].title.toLowerCase().includes(name.toLowerCase())
+        videos[code].title.toLowerCase().includes(name.toLowerCase()) ||
+        videos[code].description.toLowerCase().includes(name.toLowerCase())
       ) {
         await videoList.push(videos[code]);
       }

@@ -1,7 +1,7 @@
 //@@viewOn:imports
 //@@import UU5 from "uu5g04";
 import React from "react";
-import { createComponent, useDataList } from "uu5g04-hooks";
+import { createComponent, useDataList, useState } from "uu5g04-hooks";
 import Calls from "calls";
 //@@viewOff:imports
 
@@ -21,9 +21,14 @@ export const VideoProvider = createComponent({
   //@@viewOff:defaultProps
 
   render({ children }) {
+
+    const { search } = window.location;
+    const query = new URLSearchParams(search).get("s");
+   
+
     //@@viewOn:hooks
     let listData = useDataList({
-      itemIdentifier: "code",
+     itemIdentifier: "code",
       handlerMap: {
         load: Calls.listVideos,
         createVideo: Calls.createVideo,
@@ -31,11 +36,12 @@ export const VideoProvider = createComponent({
         ratingVideo: Calls.ratingVideo,
         updateVideo: Calls.updateVideo,
       },
+      initialDtoIn: {title: query},
     });
+
 
     let { state, data, newData, pendingData, errorData, handlerMap } = listData;
     //@@viewOff:hooks
-
     //@@viewOn:private
 
     //@@viewOff:private

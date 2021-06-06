@@ -120,14 +120,14 @@ export const Video = createVisualComponent({
     //@@viewOn:hooks
     const screenSize = useScreenSize();
     const date = new Date(Number(video.code)).toLocaleDateString("cs-CZ");
-    const [mrating, setRating] = useState(video.averageRating);
+    const [rating, setRating] = useState(video.averageRating);
     const [ratingVote, setRatingVote] = useState(true);
     const handleChange = (value) => {
       setRating(Number(value));
       setRatingVote(false);
     };
     const nameAuthor = video.authorName + " " + video.authorSurname;
-    const videoDetailModal = <VideoDetail key={video.code} video={video} onRating={onRating} />;
+    const videoDetailModal = <VideoDetail video={video} onRating={onRating} />;
     //@@viewOff:hooks
 
     //@@viewOn:private
@@ -158,9 +158,6 @@ export const Video = createVisualComponent({
             colorSchema="blue"
             component={videoDetailModal}
           />
-          {/* <UU5.Bricks.Link href={"video?code=" + video.code} target="_self" colorSchema="blue">
-            {video.title}
-          </UU5.Bricks.Link> */}
         </UU5.Bricks.Div>
       );
     }
@@ -284,7 +281,7 @@ export const Video = createVisualComponent({
           <UU5.Bricks.Section>
             <UU5.Bricks.Rating
               count={5}
-              value={mrating}
+              value={rating}
               size={ratingSize}
               colorSchema="orange"
               onChange={handleChange}

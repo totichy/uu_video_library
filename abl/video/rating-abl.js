@@ -18,23 +18,23 @@ async function RatingAbl(req, res) {
   if (!valid) {
     return res.status(400).json({ error: ajv.errors });
   }
-  let { code, mrating } = req;
+  let { code, rating } = req;
 
   if (code) {
     let video = await dao.getVideo(code);
 
-    if (!video) {
+    if (!video)  {
       return res
         .status(400)
         .json({ error_message: `Video with code '${code}' doesn't exist.` });
     }
     
     let newRating = (
-      (Number(video.ratingTotal) + mrating) /
+      (Number(video.ratingTotal) + rating) /
       (Number(video.ratingCount) + 1)
     ).toFixed(1);
 
-    video.ratingTotal += mrating;
+    video.ratingTotal += rating;
     video.ratingCount += 1;
     video.averageRating = Number(newRating);
 

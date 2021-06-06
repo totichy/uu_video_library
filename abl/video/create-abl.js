@@ -16,10 +16,10 @@ const { createVideoSchema } = require("../../schemas/video-schemas");
 
 // accepts object as parameter
 async function CreateAbl(req, res) {
-  // let { category } = req;
+
   const ajv = new Ajv();
   const valid = ajv.validate(createVideoSchema, req);
-  // validation TODO: zajistit validaci - pole kategorii vetsi nez 0 a mensi nez stanovene cislo
+
   if (!valid) {
     return res.status(400).json({ error: ajv.errors });
   }
@@ -37,6 +37,42 @@ async function CreateAbl(req, res) {
     ratingCount: req.ratingCount,
     ratingTotal: req.ratingTotal,
   };
+
+  let categories = await categoryDao.listCategories();
+  let result = [];
+  let reject = [];
+
+  if (Array.isArray(video.category)) {
+    let categoriesIdArray = [];
+    for (const id in categories) {
+      categoriesIdArray.push(categories[id].categoryId);
+    }
+
+    for (let i = 0; i < video.category.length; i++) {
+      if (categoriesIdArray.includes(video.category[i])) {
+        result.push(video.category[i]);
+      } else {
+        reject.push(video.category[i]);
+      }
+    }
+  } else {
+    const e = new Error(`Invalid input data.`);
+    e.code = "INVALID_DATA";
+    throw e;
+  }
+
+  
+
+  if (reject.length > 0 && result.length === 0) {
+   
+    const e = new Error(
+      `Video not saved.`
+    );
+    e.code = "FAILED_TO_LOAD_CATEGORY";
+    return res.status(400).json({ error: e });
+  }
+
+  video.category = result;
 
   try {
     await dao.addVideo(video);

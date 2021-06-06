@@ -18,13 +18,24 @@ async function DeleteAbl(req, res) {
   //let categoryList = await CategoryDao.categoryList();
   let videoList = await libraryDao.listVideos();
   let result = [];
-  let categoryCheck = await dao.getCategory(categoryId); //Checks all categories by categoryID
 
   for (let i = 0; i < videoList.length; i++) {
     if (videoList[i].category.includes(categoryId)) {
       result.push(videoList[i]);
     }
   }
+
+  if (result.length > 0) {
+    res.status(400).json({
+      error_message: `Category is included in ${result.length} videos and can't be deleted.`,
+    });
+  } else if (
+    categoryId && 
+    typeof categoryId === "string" &&
+    categoryId.length === 3
+  ) {
+
+  let categoryCheck = await dao.getCategory(categoryId); //Checks all categories by categoryID
 
   if (!categoryCheck) {
     //if falsy throw error. This means that the categoryCheck returned empty === no category with req ID exists
@@ -33,15 +44,7 @@ async function DeleteAbl(req, res) {
     });
   }
 
-  if (result.length > 0) {
-    res.status(400).json({
-      error_message: `Category is included in ${result.length} videos and can't be deleted.`,
-    });
-  } else if (
-    categoryId &&
-    typeof categoryId === "string" &&
-    categoryId.length === 3
-  ) {
+  
     try {
       await dao.deleteCategory(categoryId);
       res.status(200).json({});
@@ -54,7 +57,7 @@ async function DeleteAbl(req, res) {
     }
   } else {
     res.status(400).json({
-      error_message: "Invalid dtoIn",
+      error_message: "Invalid input data.",
     });
   }
 }

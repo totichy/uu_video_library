@@ -7,27 +7,41 @@ let dao = new LibraryDao(
 );
 
 // get video - accepts only video.code parameter
-async function GetAbl(req, res) {
+async function GetAbl(req, query, res) {
   const { code } = req;
-
-  if (!code && typeof string && code.length > 30) {
-    return res
-      .status(400)
-      .json({
-        error_message:
-          "Invalid input: code parameter is missing or invalid data.",
-      });
+  let codeFinal;
+  if (query.code) {
+    codeFinal = query.code;
+  } else {
+    codeFinal = code;
   }
 
-  const video = await dao.getVideo(code);
-
-  if (!video) {
-    return res
-      .status(400)
-      .json({ error_message: `Video with code '${code}' doesn't exist.` });
+  if (codeFinal && (typeof codeFinal !== "string" || codeFinal.length > 30)) {
+    return res.status(400).json({
+      error_message:
+        "Invalid input: code parameter is missing or invalid data.",
+    });
   }
 
-  res.json(video);
+  try {
+    const video = await dao.getVideo(codeFinal);
+ 
+    if (!video) {
+      return res
+        .status(400)
+        .json({
+          error_message: `Video with code '${codeFinal}' doesn't exist.`,
+        });
+    }
+
+    res.json(video);
+  } catch (e) {
+    if (e.code === "FAILED_TO_LOAD_VIDEO") {
+      return res.status(400).json({ error: e });
+    } else {
+      return res.status(500).json({ error: e });
+    }
+  }
 }
 
 module.exports = GetAbl;

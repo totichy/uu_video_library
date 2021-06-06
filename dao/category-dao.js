@@ -116,7 +116,7 @@ class CategoryDao {
         throw e;
       }
     } else {
-      new Error(`Category with id ${category.categoryId} does not exist.`);
+      const e = new Error(`Category with id ${category.categoryId} does not exist.`);
       e.code = "FAILED_TO_GET_CATEGORY";
       throw e;
     }

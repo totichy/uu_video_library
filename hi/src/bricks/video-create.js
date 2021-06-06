@@ -3,7 +3,6 @@ import React from "react";
 import UU5 from "uu5g04";
 import { useHistory } from "react-router-dom";
 import { createComponent, useState, useLsi } from "uu5g04-hooks";
-//import validator from "validator";
 import VideoCreateForm from "video-create-form";
 import Form from "config-createform";
 import Errors from "config-error";
@@ -112,9 +111,9 @@ export const VideoCreate = createComponent({
     const history = useHistory();
     const onSubmitt = (e) => {
       if (categoryQuery) {
-        history.push(`?category=${categoryQuery}&s=${searchQuery}`);
+        history.push(`/home?category=${categoryQuery}&s=${searchQuery}`);
       } else {
-        history.push(`?s=${searchQuery}`);
+        history.push(`/home?s=${searchQuery}`);
       }
       e.preventDefault();
     };

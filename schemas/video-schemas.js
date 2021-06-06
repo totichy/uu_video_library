@@ -38,10 +38,10 @@ const ratingVideoSchema = {
   type: "object",
   properties: {
     code: { type: "string", minLength: 1, maxLength: 30 },
-    mrating: { type: "integer" },
+    rating: { type: "integer" },
   },
 
-  required: ["code"],
+  required: ["code","rating"],
 };
 module.exports = {
   getVideoSchema,

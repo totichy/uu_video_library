@@ -203,10 +203,10 @@ export const Home = createVisualComponent({
       }
     }
 
-    async function handleRatingVideo(video, mrating) {
+    async function handleRatingVideo(video, rating) {
       try {
-        await ratingVideoRef.current({ code: video.code, mrating: Number(mrating) });
-        showSuccess(ratingSuccess + mrating);
+        await ratingVideoRef.current({ code: video.code, rating: Number(rating) });
+        showSuccess(ratingSuccess + rating);
       } catch (e) {
         if (e.response) {
           // client received an error response (5xx, 4xx)
@@ -242,14 +242,14 @@ export const Home = createVisualComponent({
         });
       }
 
-      if (searchQuery && searchQuery.length >= 3) {
-        videox = filterPosts(videox, searchQuery);
-        VideoHeader = VideoListHeader + " " + resultTitle + ' "' + searchQuery + '"';
+      // if (searchQuery && searchQuery.length >= 3) {
+      //   videox = filterPosts(videox, searchQuery);
+      //   VideoHeader = VideoListHeader + " " + resultTitle + ' "' + searchQuery + '"';
 
-        if (dada != null) {
-          VideoHeader = SelectedVideoListHeader + ": " + dada + " " + resultTitle + ' "' + searchQuery + '"';
-        }
-      }
+      //   if (dada != null) {
+      //     VideoHeader = SelectedVideoListHeader + ": " + dada + " " + resultTitle + ' "' + searchQuery + '"';
+      //   }
+      // }
       const attrs = UU5.Common.VisualComponent.getAttrs(props);
       return (
         <div>
@@ -264,14 +264,14 @@ export const Home = createVisualComponent({
             />
           </div>
 
-          <Router>
+         {/* <Router> */}
             <VideoCreate
               onCreate={handleCreateVideo}
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
               categoryQuery={categorySelection(window.location.search)}
             />
-          </Router>
+          {/* </Router> */}
           <UU5.Bricks.Section>
             <div>
               <UU5.Bricks.Container>

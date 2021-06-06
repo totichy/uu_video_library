@@ -7,19 +7,33 @@ let dao = new LibraryDao(
 );
 
 // video list - accepts only video.name parameter
-async function ListAbl(req, res) {
+async function ListAbl(req, query, res) {
   let { title } = req;
 
-  if (!title || (title && typeof title === "string" && title.length < 100)) {
+  let titleFinal;
+  if (query.title) {
+    titleFinal = query.title;
+  } else {
+    titleFinal = title;
+  }
+
+  if (!titleFinal || (titleFinal && typeof titleFinal === "string" && titleFinal.length < 100)) {
     try {
-      let videoList = await dao.listVideos(title);
+      let videoList = await dao.listVideos(titleFinal);
+    if (titleFinal && videoList.length === 0) {
+   
+      res.status(200).json({error_message: `Video with title ${titleFinal} does not exist.`});
+    } else {
+
       res.status(200).json(videoList);
+    }
+    
     } catch (e) {
       res.status(500).json({ error_message: e });
     }
   } else {
     res.status(400).json({
-      error_message: "Invalid dtoIn",
+      error_message: "Invalid input data.",
     });
   }
 }

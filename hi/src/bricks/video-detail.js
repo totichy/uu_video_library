@@ -110,7 +110,7 @@ export const VideoDetail = createVisualComponent({
     const queryCode = window.location.search;
     const urlParams = new URLSearchParams(queryCode).get("code");
     //@@viewOff: hooks
-    const [mrating, setRating] = useState(video.averageRating);
+    const [rating, setRating] = useState(video.averageRating);
     const [ratingVote, setRatingVote] = useState(true);
     const [ratingCount, setRatingCount] = useState(video.ratingCount);
     const handleChange = (value) => {
@@ -189,7 +189,7 @@ export const VideoDetail = createVisualComponent({
           <UU5.Bricks.Section>
             <UU5.Bricks.Rating
               count={5}
-              value={mrating}
+              value={rating}
               size={"m"}
               colorSchema="orange"
               onChange={handleChange}

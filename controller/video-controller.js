@@ -12,12 +12,13 @@ const RatingAbl = require("../abl/video/rating-abl");
 
 router.post("/create", async (req, res) => {
   const { body } = req;
+
   await CreateAbl(body, res);
 });
 
 router.get("/get", async (req, res) => {
- 
-  await GetAbl(req.query, res);
+  const { body } = req;
+  await GetAbl(body, req.query, res);
 });
 
 router.post("/update", async (req, res) => {
@@ -32,7 +33,7 @@ router.post("/delete", async (req, res) => {
 
 router.get("/list", async (req, res) => {
   const { body } = req;
-  await ListAbl(body, res);
+  await ListAbl(body, req.query, res);
 });
 
 router.post("/rating", async (req, res) => {

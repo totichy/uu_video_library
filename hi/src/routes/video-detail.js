@@ -4,7 +4,7 @@ import "uu5g04-bricks";
 import { createVisualComponent, useState, useLsi, useDataList, useDataObject } from "uu5g04-hooks";
 import "uu_plus4u5g01-bricks";
 import UU5 from "uu5g04";
-import Video from "video-detail";
+import VideoDetail from "video-detail";
 import VideoLsi from "config-video";
 import Calls from "calls";
 import Errors from "config-error";
@@ -196,10 +196,10 @@ export const VideoDetailCode = createVisualComponent({
       }
     }
 
-    async function handleRatingVideo(video, mrating) {
+    async function handleRatingVideo(video, rating) {
       try {
-        await Calls.ratingVideo({ code: video.code, mrating: Number(mrating) });
-        showSuccess(ratingSuccess + mrating);
+        await Calls.ratingVideo({ code: video.code, rating: Number(rating) });
+        showSuccess(ratingSuccess + rating);
       } catch (e) {
         if (e.response) {
           // client received an error response (5xx, 4xx)
@@ -239,7 +239,7 @@ export const VideoDetailCode = createVisualComponent({
             <div>
               <UU5.Bricks.Container>
                 <UU5.Bricks.Header level={3} content={video.title} underline={true} />
-                <Video video={video} onUpdate={handleUpdateVideo2} onRating={handleRatingVideo} />
+                <VideoDetail video={video} onUpdate={handleUpdateVideo2} onRating={handleRatingVideo} />
               </UU5.Bricks.Container>
             </div>
           </UU5.Bricks.Section>

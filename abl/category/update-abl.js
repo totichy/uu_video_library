@@ -10,7 +10,7 @@ let dao = new CategoryDao(
 async function UpdateAbl(req, res) {
   let { categoryId, categoryName } = req;
 
-  if (categoryId) {
+  if (categoryId  && typeof categoryId === "string" && categoryId.length === 3 && typeof categoryName === "string" && categoryName.length < 30) {
     const category = { categoryId, categoryName };
     try {
       let result = await dao.updateCategory(category);
@@ -26,7 +26,7 @@ async function UpdateAbl(req, res) {
     }
   } else {
     res.status(400).json({
-      error_message: "Invalid dtoIn",
+      error_message: "Invalid input data.",
     });
   }
 }
