@@ -21,14 +21,33 @@ async function RatingAbl(req, res) {
   let { code, rating } = req;
 
   if (code) {
-    let video = await dao.getVideo(code);
+    // let video = await dao.getVideo(code);
 
-    if (!video)  {
-      return res
-        .status(400)
-        .json({ error_message: `Video with code '${code}' doesn't exist.` });
-    }
+    // if (!video)  {
+    //   return res
+    //     .status(400)
+    //     .json({ error_message: `Video with code '${code}' doesn't exist.` });
+    // }
     
+    try {
+      const video = await dao.getVideo(code);
+   
+      if (!video) {
+        return res
+          .status(400)
+          .json({
+            error_message: `Video with code '${code}' doesn't exist.`,
+          });
+      }
+
+    } catch (e) {
+      if (e.code === "FAILED_TO_LOAD_VIDEO") {
+        return res.status(400).json({ error: e });
+      } else {
+        return res.status(500).json({ error: e });
+      }
+    }
+  
     let newRating = (
       (Number(video.ratingTotal) + rating) /
       (Number(video.ratingCount) + 1)
