@@ -21,4 +21,6 @@ Start server:
 - `npm start` in folder uu_videolibrary_maing02
 - open URL (http://localhost:3000) in browser
 
-<img width="500" alt="Thumbnail of video library" src="https://user-images.githubusercontent.com/80640110/123789342-5af04580-d8dd-11eb-949e-ab40007598a9.png">
+<center>
+<img width="800" alt="Thumbnail of video library" src="https://user-images.githubusercontent.com/80640110/123789342-5af04580-d8dd-11eb-949e-ab40007598a9.png">
+</center>
