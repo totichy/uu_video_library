@@ -2,6 +2,7 @@
 
 const path = require("path");
 const LibraryDao = require("../../dao/video-library-dao");
+
 let dao = new LibraryDao(
   path.join(__dirname, "..", "..", "storage", "videos.json")
 );
@@ -25,11 +26,13 @@ async function GetAbl(req, query, res) {
 
   try {
     const video = await dao.getVideo(codeFinal);
- 
+
     res.status(200).json(video);
   } catch (e) {
     if (e.code === "FAILED_TO_LOAD_VIDEO") {
-      return res.status(400).json({ error: `Video with code '${code}' does not exist.` });
+      return res
+        .status(400)
+        .json({ error: `Video with code '${code}' does not exist.` });
     } else {
       return res.status(500).json({ error: e });
     }

@@ -2,6 +2,7 @@
 
 const path = require("path");
 const LibraryDao = require("../../dao/video-library-dao");
+
 let dao = new LibraryDao(
   path.join(__dirname, "..", "..", "storage", "videos.json")
 );
@@ -64,20 +65,15 @@ async function UpdateAbl(req, res) {
       throw e;
     }
 
-   
-
     if (reject.length > 0 && result.length === 0) {
-     
-      const e = new Error(
-        `Video not updated.`
-      );
+      const e = new Error(`Video not updated.`);
       e.code = "FAILED_TO_LOAD_CATEGORY";
       return res.status(400).json({ error: e });
     }
 
     video.category = result;
     try {
-    let resultVideo = await dao.updateVideo(video);
+      let resultVideo = await dao.updateVideo(video);
       res.status(200).json(resultVideo);
     } catch (e) {
       if (e.code === "FAILED_TO_GET_VIDEO") {

@@ -2,10 +2,13 @@
 
 const path = require("path");
 const LibraryDao = require("../../dao/video-library-dao");
+
 let dao = new LibraryDao(
   path.join(__dirname, "..", "..", "storage", "videos.json")
 );
+
 const CategoryDao = require("../../dao/category-dao");
+
 let categoryDao = new CategoryDao(
   path.join(__dirname, "..", "..", "storage", "categories.json")
 );
@@ -23,6 +26,7 @@ async function CreateAbl(req, res) {
     return res.status(400).json({ error: ajv.errors });
   }
 
+  // video create
   const video = {
     code: req.code,
     authorName: req.authorName,
