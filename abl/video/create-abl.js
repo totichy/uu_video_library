@@ -16,7 +16,6 @@ const { createVideoSchema } = require("../../schemas/video-schemas");
 
 // accepts object as parameter
 async function CreateAbl(req, res) {
-
   const ajv = new Ajv();
   const valid = ajv.validate(createVideoSchema, req);
 
@@ -58,16 +57,11 @@ async function CreateAbl(req, res) {
   } else {
     const e = new Error(`Invalid input data.`);
     e.code = "INVALID_DATA";
-    throw e;
+    return res.status(400).json({ error: e });
   }
 
-  
-
   if (reject.length > 0 && result.length === 0) {
-   
-    const e = new Error(
-      `Video not saved.`
-    );
+    const e = new Error(`Video not saved.`);
     e.code = "FAILED_TO_LOAD_CATEGORY";
     return res.status(400).json({ error: e });
   }

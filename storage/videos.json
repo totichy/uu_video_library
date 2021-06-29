@@ -104,5 +104,33 @@
     "averageRating": 4.3,
     "ratingCount": 4,
     "ratingTotal": 17
+  },
+  {
+    "code": "1245",
+    "authorName": "Petr",
+    "authorSurname": "Novák",
+    "title": "Quadratic equations",
+    "videoUrl": "https://www.youtube.com/watch?v=kC9D7iy_16asUggasd",
+    "description": "We know that Quadratic Polynomials are! But what are Quadratic Equations? Watch this video to know more! We know that Quadratic Polynomials are! But what are Quadratic Equations? Watch this video to know more!",
+    "category": [
+      "0lg"
+    ],
+    "visible": true,
+    "averageRating": 3,
+    "ratingCount": 42
+  },
+  {
+    "code": "1242we45255",
+    "authorName": "Petr",
+    "authorSurname": "Novák",
+    "title": "Quadratic equations",
+    "videoUrl": "https://www.youtube.com/watch?v=kC9D7iy_1Uggasd",
+    "description": "We know that Quadratic Polynomials are! But what are Quadratic Equations? Watch this video to know more! We know that Quadratic Polynomials are! But what are Quadratic Equations? Watch this video to know more!",
+    "category": [
+      "k3s"
+    ],
+    "visible": true,
+    "averageRating": 3,
+    "ratingCount": 42
   }
 ]
