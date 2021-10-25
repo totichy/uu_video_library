@@ -12,7 +12,6 @@ const RatingAbl = require("../abl/video/rating-abl");
 
 router.post("/create", async (req, res) => {
   const { body } = req;
-
   await CreateAbl(body, res);
 });
 
